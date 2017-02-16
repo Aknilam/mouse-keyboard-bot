@@ -1,0 +1,48 @@
+﻿<Window x:Class="mouse_keyboard_bot.ConfigForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Program configuration" Height="210" Width="550">
+    <DockPanel Name="dockPanel1">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" >
+            <StackPanel Name="stackPanel1">
+                <StackPanel.Resources>
+                    <Style x:Key="TxtBlkStyle" TargetType="{x:Type TextBlock}">
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="Margin" Value="5,10,5,0" />
+                        <Setter Property="Foreground" Value="Black" />
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="FontFamily" Value="Verdana" />
+                        <Setter Property="TextWrapping" Value="Wrap" />
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                    <Style x:Key="HeaderBlkStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TxtBlkStyle}">
+                        <Setter Property="Foreground" Value="Red" />
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                    </Style>
+                    <Style x:Key="FinePrintBlkStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TxtBlkStyle}">
+                        <Setter Property="FontSize" Value="9" />
+                        <Setter Property="Margin" Value="5,2,5,0" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                    </Style>
+                    <Style x:Key="CodeBlkStyle" TargetType="{x:Type TextBlock}">
+                        <Setter Property="Background" Value="LightGray" />
+                        <Setter Property="Margin" Value="5,10,5,0" />
+                        <Setter Property="Foreground" Value="Black" />
+                        <Setter Property="FontSize" Value="11" />
+                        <Setter Property="FontFamily" Value="Lucida Console" />
+                        <Setter Property="TextWrapping" Value="Wrap" />
+                        <Setter Property="Padding" Value="20,0,20,0" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <Label x:Name="saveFileLabel" Content="File to save"/>
+                <TextBox Margin="5px 0px" Name="saveFile" />
+                <Label Content="Skip below amount of last user events"/>
+                <TextBox Margin="5px 0px 5px 5px" Name="skipLast" />
+                <CheckBox x:Name="openForms" Content="Open forms at app start" Margin="5px 0px 5px 5px" />
+                <Button Content="Save" Width="50px" Click="Zapisz_Click" HorizontalAlignment="Left" Margin="5px 0px 0px 0px" />
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
