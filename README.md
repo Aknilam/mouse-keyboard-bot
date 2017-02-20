@@ -18,9 +18,9 @@ Actual state: skeleton and libraries prepared.
 
 # Must be
 
-- record track in runtime
-- auto-repeat remembered track with 300ms time delta
-- auto-repeat with configurable time delta
++ record track in runtime
++ auto-repeat remembered track with 500ms time delta
+- mouse and keyboard events exactly with the same deltas as while recording
 
 ## By the way
 - hotkey to focus window under mouse pointer (do simple mouse click on actual position)
@@ -28,11 +28,10 @@ Actual state: skeleton and libraries prepared.
 
 # Should be
 
-- mouse and keyboard events exactly with the same deltas as while recording
 - serialize track
 - saving multiple recordings to files
 - list of user-defined recordings 
-- hotkeys to repeat recordings
+- assign hotkeys to repeat recordings
 
 # Could be
 
@@ -40,6 +39,10 @@ Actual state: skeleton and libraries prepared.
 - recording with screenshots to show step-by-step position of mouse with background
 - saving screenshots while auto-repeating track (to find out what really happened)
 - compare recorded pattern with saved auto-repeated track (screenshots)
+
+- run next step when part of screen looks exactly like pattern
+- if/else tracking basing on actual screen/part of screen pattern match
+- tool to screenshot part of screen to quickly create pattern
 
 - repeat only if screen has the same resolution (eg. notebook with and without monitor)
 - repeat taking into account screen size (while recording remember screen size; while repeating rescale it to actual size)
