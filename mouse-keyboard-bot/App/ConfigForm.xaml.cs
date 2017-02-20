@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace mouse_keyboard_bot
+namespace mouse_keyboard_bot.App
 {
     public partial class ConfigForm : Window
     {

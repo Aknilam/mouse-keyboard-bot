@@ -4,8 +4,10 @@ using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Reflection;
 using mouse_keyboard_bot.Recorder;
+using mouse_keyboard_bot.Recorder.View;
+using mouse_keyboard_bot.Recorder.Presenter;
 
-namespace mouse_keyboard_bot
+namespace mouse_keyboard_bot.App
 {
     public class BotAppContext : ApplicationContext
     {
@@ -14,7 +16,6 @@ namespace mouse_keyboard_bot
         private static readonly string DefaultTooltip = "Recorder";
 
         private Subscribe subscribe;
-        private UserActionsRecorder recorder;
 
         /// <summary>
 		/// This class should be created and passed into Application.Run( ... )
@@ -23,13 +24,12 @@ namespace mouse_keyboard_bot
         {
             InitializeContext();
 
+            subscribe = new Subscribe();
+
             if (Config.OpenFormsAtInit.Value)
             {
-                ShowConfigForm();
+                ShowBotForm();
             }
-
-            subscribe = new Subscribe();
-            recorder = new UserActionsRecorder(subscribe);
         }
 
         private void ContextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -52,13 +52,18 @@ namespace mouse_keyboard_bot
         # region the child forms
         
         private System.Windows.Window configForm;
+
+        private RecordingsPresenter botPresenter;
         private System.Windows.Window botForm;
 
         public void ShowBotForm()
         {
             if (botForm == null)
             {
-                botForm = new Recordings(subscribe);
+                var view = new Recordings();
+                botForm = view;
+                botPresenter = new RecordingsPresenter(view, subscribe);
+
                 botForm.Closed += botForm_Closed; // avoid reshowing a disposed form
                 ElementHost.EnableModelessKeyboardInterop(botForm);
                 botForm.Show();

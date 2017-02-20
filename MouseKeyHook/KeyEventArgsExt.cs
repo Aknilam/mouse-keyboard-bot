@@ -16,6 +16,14 @@ namespace Gma.System.MouseKeyHook
     /// </summary>
     public class KeyEventArgsExt : KeyEventArgs
     {
+        public VirtualKeyCode Code;
+        
+        internal KeyEventArgsExt(Keys keyData, int timestamp, bool isKeyDown, bool isKeyUp, VirtualKeyCode code)
+            : this(keyData, timestamp, isKeyDown, isKeyUp)
+        {
+            Code = code;
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="KeyEventArgsExt" /> class.
         /// </summary>
@@ -87,7 +95,11 @@ namespace Gma.System.MouseKeyHook
             bool isKeyDown = (keyCode == Messages.WM_KEYDOWN || keyCode == Messages.WM_SYSKEYDOWN);
             bool isKeyUp = (keyCode == Messages.WM_KEYUP || keyCode == Messages.WM_SYSKEYUP);
 
-            return new KeyEventArgsExt(keyData, keyboardHookStruct.Time, isKeyDown, isKeyUp);
+            return new KeyEventArgsExt(keyData, keyboardHookStruct.Time, isKeyDown, isKeyUp, new VirtualKeyCode
+            {
+                virtualKeyCode = keyboardHookStruct.VirtualKeyCode,
+                scanCode = keyboardHookStruct.ScanCode
+            });
         }
 
         // # It is not possible to distinguish Keys.LControlKey and Keys.RControlKey when they are modifiers

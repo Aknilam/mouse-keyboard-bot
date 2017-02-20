@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace mouse_keyboard_bot
+namespace mouse_keyboard_bot.App
 {
     class ConfigProperty<T>
     {

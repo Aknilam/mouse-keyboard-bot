@@ -18,9 +18,12 @@ namespace Gma.System.MouseKeyHook
     {
         public VirtualKeyCode Code;
 
-        internal KeyPressEventArgsExt(char keyChar, int timestamp, VirtualKeyCode code)
-            : base(keyChar)
+        public bool HasKeyChar;
+
+        internal KeyPressEventArgsExt(char? keyChar, int timestamp, VirtualKeyCode code)
+            : base(' ')
         {
+            HasKeyChar = keyChar.HasValue;
             IsNonChar = keyChar == (char)0x0;
             Timestamp = timestamp;
             Code = code;
@@ -122,14 +125,24 @@ namespace Gma.System.MouseKeyHook
             {
                 char[] chars;
                 KeyboardNativeMethods.TryGetCharFromKeyboardState(virtualKeyCode, scanCode, fuState, out chars);
-                if (chars == null) yield break;
-                foreach (var current in chars)
+                if (chars == null)
                 {
-                    yield return new KeyPressEventArgsExt(current, keyboardHookStruct.Time, new VirtualKeyCode
+                    yield return new KeyPressEventArgsExt(null, keyboardHookStruct.Time, new VirtualKeyCode
                     {
                         virtualKeyCode = virtualKeyCode,
                         scanCode = scanCode
                     });
+                }
+                else
+                {
+                    foreach (var current in chars)
+                    {
+                        yield return new KeyPressEventArgsExt(current, keyboardHookStruct.Time, new VirtualKeyCode
+                        {
+                            virtualKeyCode = virtualKeyCode,
+                            scanCode = scanCode
+                        });
+                    }
                 }
             }
         }

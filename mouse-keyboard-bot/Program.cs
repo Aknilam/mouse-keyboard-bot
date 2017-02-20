@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using MutexManager;
 using System.IO;
+using mouse_keyboard_bot.App;
 
 /*
  * The official license for this file is shown next.

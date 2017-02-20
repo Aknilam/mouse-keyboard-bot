@@ -66,26 +66,34 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Properties\app.manifest" />
+    <None Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="ConfigForm.xaml.cs">
+    <Compile Include="App\Config.cs" />
+    <Compile Include="App\ConfigForm.xaml.cs">
       <DependentUpon>ConfigForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="HostActions\ForegroundProcess.cs" />
     <Compile Include="HostActions\KeyPress.cs" />
-    <Compile Include="Logger.cs" />
-    <Compile Include="BotAppContext.cs" />
+    <Compile Include="App\BotAppContext.cs" />
     <Compile Include="HostActions\Maximize.cs" />
     <Compile Include="HostActions\MouseMove.cs" />
+    <Compile Include="Model\Details.cs" />
+    <Compile Include="Model\DetailsType.cs" />
+    <Compile Include="Model\KeyboardDetails.cs" />
+    <Compile Include="Model\MouseDetails.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Recorder\Presenter\RecordingsPresenter.cs" />
+    <Compile Include="Model\Recording.cs" />
+    <Compile Include="Recorder\Replier.cs" />
     <Compile Include="Recorder\UserActionsRecorder.cs" />
-    <Compile Include="Recorder\Recordings.xaml.cs">
+    <Compile Include="Recorder\View\Recordings.xaml.cs">
       <DependentUpon>Recordings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Subscribe.cs" />
+    <Compile Include="HostActions\Subscribe.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MouseKeyHook\MouseKeyHook.csproj">
@@ -110,11 +118,11 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ConfigForm.xaml">
+    <Page Include="App\ConfigForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Recorder\Recordings.xaml">
+    <Page Include="Recorder\View\Recordings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -132,7 +140,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="route.ico" />
+    <Content Include="route.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
