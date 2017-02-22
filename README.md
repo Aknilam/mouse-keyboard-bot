@@ -6,7 +6,9 @@ Bot to track mouse and keyboard events and repeat them on demand.
 
 In progress.
 
-Actual state: skeleton and libraries prepared.
+Actual state:
++ skeleton and libraries prepared.
++ record and repeat
 
 
 
@@ -20,7 +22,7 @@ Actual state: skeleton and libraries prepared.
 
 + record track in runtime
 + auto-repeat remembered track with 500ms time delta
-- mouse and keyboard events exactly with the same deltas as while recording
++ mouse and keyboard events exactly with the same deltas as while recording
 
 ## By the way
 - hotkey to focus window under mouse pointer (do simple mouse click on actual position)
@@ -28,10 +30,11 @@ Actual state: skeleton and libraries prepared.
 
 # Should be
 
-- serialize track
++ serialize track
 - saving multiple recordings to files
 - list of user-defined recordings 
 - assign hotkeys to repeat recordings
+- nice interface
 
 # Could be
 

@@ -7,11 +7,13 @@ using System.Windows.Forms;
 
 namespace mouse_keyboard_bot.Model
 {
+    [Serializable]
     public class MouseDetails : Details
     {
         public int X { get; set; }
         public int Y { get; set; }
         public MouseButtons Button { get; set; }
+        public int Wheel { get; set; }
 
         public MouseEventType EventType { get; set; }
 
@@ -36,6 +38,7 @@ namespace mouse_keyboard_bot.Model
         Down,
         Up,
         Click,
-        DbClick
+        DbClick,
+        Wheel
     }
 }

@@ -54,7 +54,7 @@ namespace mouse_keyboard_bot.App
         private System.Windows.Window configForm;
 
         private RecordingsPresenter botPresenter;
-        private System.Windows.Window botForm;
+        private Recordings botForm;
 
         public void ShowBotForm()
         {
@@ -162,6 +162,7 @@ namespace mouse_keyboard_bot.App
         public void exit()
         {
             exitting = true;
+            botForm.DisableTopmost();
             string question = "Czy na pewno chcesz zamknąć program?";
             if (MessageBox.Show(question, "Zamykanie programu", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -169,6 +170,7 @@ namespace mouse_keyboard_bot.App
             } else
             {
                 exitting = false;
+                botForm?.EnableTopmost();
             }
         }
 

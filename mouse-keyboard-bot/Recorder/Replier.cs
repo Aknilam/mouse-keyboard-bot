@@ -31,9 +31,14 @@ namespace mouse_keyboard_bot.Recorder
         {
             int skip = 2;// Config.SkipLast.Value;
             run = true;
+            long prevTime = _recording.StartTime;
             for (int i = 0; i < _recording.Events.Count - skip && run; i++)
             {
-                if (_recording.Events[i].Type == DetailsType.Mouse)
+                var evt = _recording.Events[i];
+
+                await Task.Delay((int)(evt.Time - prevTime));
+                prevTime = evt.Time;
+                if (evt.Type == DetailsType.Mouse)
                 {
                     MouseMove.ProcessMouseEvent(_recording.Events[i] as MouseDetails);
                 }
@@ -41,7 +46,6 @@ namespace mouse_keyboard_bot.Recorder
                 {
                     KeyPress.ProcessKeyEvent(_recording.Events[i] as KeyboardDetails);
                 }
-                await Task.Delay(500);
             }
         }
 

@@ -13,6 +13,8 @@ namespace mouse_keyboard_bot
         public event MouseClickAtSchema MouseClickAt;
         public event MouseClickAtSchema MouseDown;
         public event MouseClickAtSchema MouseUp;
+        public event MouseClickAtSchema MouseWheel;
+        
 
         public delegate void MouseDblClickAtSchema(MouseDetails details);
         public event MouseDblClickAtSchema MouseDblClickAt;
@@ -71,7 +73,7 @@ namespace mouse_keyboard_bot
             //m_Events.MouseDragStarted += OnMouseDragStarted;
             //m_Events.MouseDragFinished += OnMouseDragFinished;
 
-            //m_Events.MouseWheel += HookManager_MouseWheel;
+            m_Events.MouseWheel += HookManager_MouseWheel;
 
             m_Events.MouseDown += OnMouseDown;
         }
@@ -92,12 +94,17 @@ namespace mouse_keyboard_bot
             //m_Events.MouseDragStarted -= OnMouseDragStarted;
             //m_Events.MouseDragFinished -= OnMouseDragFinished;
 
-            //m_Events.MouseWheel -= HookManager_MouseWheel;
+            m_Events.MouseWheel -= HookManager_MouseWheel;
 
             m_Events.MouseDown -= OnMouseDown;
 
             m_Events.Dispose();
             m_Events = null;
+        }
+
+        private void HookManager_MouseWheel(object sender, MouseEventArgs e)
+        {
+            MouseWheel?.Invoke(new MouseDetails { Wheel = e.Delta, X = e.X, Y = e.Y, EventType = MouseEventType.Wheel });
         }
 
         private void OnMouseDown(object sender, MouseEventArgs e)

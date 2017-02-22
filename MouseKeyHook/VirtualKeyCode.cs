@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Gma.System.MouseKeyHook
 {
+    [Serializable]
     public class VirtualKeyCode
     {
         public int virtualKeyCode;

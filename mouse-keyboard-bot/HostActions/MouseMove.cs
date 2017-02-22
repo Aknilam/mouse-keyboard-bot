@@ -20,6 +20,8 @@ namespace mouse_keyboard_bot.HostActions
         public const int MOUSEEVENTF_RIGHTDOWN = 0x08;
         public const int MOUSEEVENTF_RIGHTUP = 0x10;
 
+        private const int MOUSEEVENTF_WHEEL = 0x0800;
+
         [DllImport("User32.Dll")]
         public static extern long SetCursorPos(int x, int y);
 
@@ -134,18 +136,31 @@ namespace mouse_keyboard_bot.HostActions
 
         public static void ProcessMouseEvent(MouseDetails mouseDetails)
         {
-            switch (mouseDetails.Button)
+            if (mouseDetails.EventType == MouseEventType.Wheel)
             {
-                case System.Windows.Forms.MouseButtons.Left:
-                    ProcessLeftMouseEvent(mouseDetails);
-                    return;
-                case System.Windows.Forms.MouseButtons.Middle:
-                    ProcessMiddleMouseEvent(mouseDetails);
-                    return;
-                case System.Windows.Forms.MouseButtons.Right:
-                    ProcessRightMouseEvent(mouseDetails);
-                    return;
+                ProcesWheelEvent(mouseDetails.X, mouseDetails.Y, mouseDetails.Wheel);
             }
+            else
+            {
+                switch (mouseDetails.Button)
+                {
+                    case System.Windows.Forms.MouseButtons.Left:
+                        ProcessLeftMouseEvent(mouseDetails);
+                        return;
+                    case System.Windows.Forms.MouseButtons.Middle:
+                        ProcessMiddleMouseEvent(mouseDetails);
+                        return;
+                    case System.Windows.Forms.MouseButtons.Right:
+                        ProcessRightMouseEvent(mouseDetails);
+                        return;
+                }
+            }
+        }
+
+        private static void ProcesWheelEvent(int xpos, int ypos, int wheel)
+        {
+            SetCursorPos(xpos, ypos);
+            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, wheel, 0);
         }
 
         //[DllImport("User32.Dll")]

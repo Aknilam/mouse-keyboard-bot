@@ -34,9 +34,16 @@ namespace mouse_keyboard_bot.Recorder.View
             subscribe.MouseDown += Subscribe_MouseDown;
             subscribe.MouseUp += Subscribe_MouseUp;
 
+            subscribe.MouseWheel += Subscribe_MouseWheel;
+
             subscribe.KeyPress += Subscribe_KeyboardKey;
             subscribe.KeyDown += Subscribe_KeyDown;
             subscribe.KeyUp += Subscribe_KeyUp;
+        }
+
+        private void Subscribe_MouseWheel(MouseDetails mouseDetails)
+        {
+            Append("mouse wheel: " + mouseDetails.Wheel);
         }
 
         private void Subscribe_MouseUp(MouseDetails mouseDetails)
@@ -69,9 +76,21 @@ namespace mouse_keyboard_bot.Recorder.View
             Append("key press: " + key + " " + code.ToString());
         }
 
+        private bool CanBeTopMost = true;
+        public void DisableTopmost()
+        {
+            CanBeTopMost = false;
+            this.Topmost = false;
+        }
+        public void EnableTopmost()
+        {
+            CanBeTopMost = true;
+        }
+
         private void Recordings_Deactivated(object sender, EventArgs e)
         {
-            this.Topmost = true;
+            if (CanBeTopMost)
+                this.Topmost = true;
         }
 
         public void Append(string text)
@@ -82,8 +101,6 @@ namespace mouse_keyboard_bot.Recorder.View
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            //mouse_keyboard_bot.MouseMove.SetCursorPos(mouseDetails.X, mouseDetails.Y);
-            //mouse_keyboard_bot.HostActions.MouseMove.LeftMouseClick(172, 130);
         }
 
 
@@ -91,6 +108,7 @@ namespace mouse_keyboard_bot.Recorder.View
         public event EmptyEvent End;
         public event EmptyEvent ReplyStart;
         public event EmptyEvent ReplyEnd;
+        public event EmptyEvent Setialize;
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
@@ -110,6 +128,11 @@ namespace mouse_keyboard_bot.Recorder.View
         private void Reply_End_Click(object sender, RoutedEventArgs e)
         {
             ReplyEnd?.Invoke();
+        }
+
+        private void Serialize_Click(object sender, RoutedEventArgs e)
+        {
+            Setialize?.Invoke();
         }
     }
 }

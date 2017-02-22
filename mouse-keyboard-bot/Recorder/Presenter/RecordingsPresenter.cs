@@ -33,6 +33,15 @@ namespace mouse_keyboard_bot.Recorder.Presenter
             _view.End += view_End;
             _view.ReplyStart += () => replier.Start(recording);
             _view.ReplyEnd += () => replier.Finish();
+
+            _view.Setialize += _view_Setialize;
+
+            recording = Recording.Deserialize();
+        }
+
+        private void _view_Setialize()
+        {
+            Recording.Serialize(recording);
         }
 
         Recording recording;

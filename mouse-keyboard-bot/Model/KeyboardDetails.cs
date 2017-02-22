@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace mouse_keyboard_bot.Model
 {
+    [Serializable]
     public class KeyboardDetails : Details
     {
         public VirtualKeyCode Code { get; set; }

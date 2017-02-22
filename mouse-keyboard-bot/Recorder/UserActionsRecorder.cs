@@ -28,39 +28,46 @@ namespace mouse_keyboard_bot.Recorder
             subscribe.KeyDown += Subscribe_KeyDown;
             subscribe.KeyUp += Subscribe_KeyUp;
 
+            subscribe.MouseWheel += Subscribe_MouseWheel;
+
             subscribe.MouseClickAt += Subscribe_MouseClickAt;
             subscribe.MouseDown += Subscribe_MouseDown;
             subscribe.MouseUp += Subscribe_MouseUp;
         }
 
+        private void Subscribe_MouseWheel(MouseDetails mouseDetails)
+        {
+            details.Add(mouseDetails);
+        }
+
         private void Subscribe_KeyUp(Keys key, Gma.System.MouseKeyHook.VirtualKeyCode code)
         {
-            details.Events.Add(new KeyboardDetails { Code = code, EventType = KeyEventType.Up });
+            details.Add(new KeyboardDetails { Code = code, EventType = KeyEventType.Up });
         }
 
         private void Subscribe_KeyDown(Keys key, Gma.System.MouseKeyHook.VirtualKeyCode code)
         {
-            details.Events.Add(new KeyboardDetails { Code = code, EventType = KeyEventType.Down });
+            details.Add(new KeyboardDetails { Code = code, EventType = KeyEventType.Down });
         }
 
         private void Subscribe_MouseUp(MouseDetails mouseDetails)
         {
-            details.Events.Add(mouseDetails);
+            details.Add(mouseDetails);
         }
 
         private void Subscribe_MouseDown(MouseDetails mouseDetails)
         {
-            details.Events.Add(mouseDetails);
+            details.Add(mouseDetails);
         }
 
         private void Subscribe_MouseClickAt(MouseDetails mouseDetails)
         {
-            //details.Events.Add(mouseDetails);
+            //details.Add(mouseDetails);
         }
 
         private void Subscribe_KeyboardKey(char key, Gma.System.MouseKeyHook.VirtualKeyCode code)
         {
-            //details.Events.Add(new KeyboardDetails { Code = code, EventType = KeyEventType.Press });
+            //details.Add(new KeyboardDetails { Code = code, EventType = KeyEventType.Press });
 
             /*if (key == 'j')
             {

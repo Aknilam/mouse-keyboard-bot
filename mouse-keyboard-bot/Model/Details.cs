@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace mouse_keyboard_bot.Model
 {
+    [Serializable]
     public abstract class Details
     {
         public virtual DetailsType Type { get; }
+
+        public long Time { get; set; }
     }
 }

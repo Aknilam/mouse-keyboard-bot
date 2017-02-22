@@ -41,8 +41,9 @@
                 <Button Content="End" Width="50px" Click="End_Click" HorizontalAlignment="Left" Margin="5px 0px 0px 0px" />
                 <Button Content="Reply start" Width="70" Click="Reply_Start_Click" HorizontalAlignment="Left" Margin="5px 0px 0px 0px" />
                 <Button Content="Reply end" Width="70" Click="Reply_End_Click" HorizontalAlignment="Left" Margin="5px 0px 0px 0px" />
+                <Button Content="Serialize" Width="70" Click="Serialize_Click" HorizontalAlignment="Left" Margin="5px 0px 0px 0px" />
             </StackPanel>
         </ScrollViewer>
-        <TextBox x:Name="logArea" Height="329" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Margin="0,50,0,0"/>
+        <TextBox x:Name="logArea" TextWrapping="Wrap" Width="441" Margin="0,10"/>
     </DockPanel>
 </Window>
