@@ -8,20 +8,23 @@ using System.Windows.Forms;
 using mouse_keyboard_bot.HostActions;
 using mouse_keyboard_bot.Model;
 using mouse_keyboard_bot.App;
+using mouse_keyboard_bot.Model.Factories;
 
 namespace mouse_keyboard_bot.Recorder
 {
     public class UserActionsRecorder
     {
         private Subscribe subscribe;
+        private ModelFactory modelFactory;
 
-        public UserActionsRecorder(Subscribe subscribe)
+        public UserActionsRecorder(Subscribe subscribe, ModelFactory modelFactory)
         {
             this.subscribe = subscribe;
+            this.modelFactory = modelFactory;
 
             AttachSubscribe();
         }
-
+        
         private void AttachSubscribe()
         {
             subscribe.KeyPress += Subscribe_KeyboardKey;
@@ -77,17 +80,17 @@ namespace mouse_keyboard_bot.Recorder
             }*/
         }
 
-        Recording details = new Recording();
+        Recording details = new Recording(-1);
         public void StartRecording()
         {
-            details = new Recording();
+            details = modelFactory.CreateRecording();
         }
 
         Recording recordedDetails;
         public Recording FinishRecording()
         {
             recordedDetails = details;
-            details = new Recording();
+            details = new Recording(-1);
             return recordedDetails;
         }
     }

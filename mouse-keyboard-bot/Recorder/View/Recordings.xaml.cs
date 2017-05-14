@@ -1,6 +1,7 @@
 ﻿using mouse_keyboard_bot.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +19,27 @@ using System.Windows.Shapes;
 namespace mouse_keyboard_bot.Recorder.View
 {
     public delegate void EmptyEvent();
+    public delegate void StringEvent(string name);
+    //public delegate void RecordingEvent(Recording recording);
 
     public partial class Recordings : Window
     {
+        ObservableCollection<VVV> recordings = new ObservableCollection<VVV>();
+
         public Recordings()
         {
             InitializeComponent();
+
+
+            listOfRecordings.ItemsSource = recordings;
+
+            recordings.Add(new VVV("Task1"));
+            recordings.Add(new VVV("Task2"));
+            recordings.Add(new VVV("Task3"));
+            recordings.Add(new VVV("Task4"));
+            recordings.Add(new VVV("Task5"));
+            recordings.Add(new VVV("Task6"));
+
 
             this.Deactivated += Recordings_Deactivated;
         }
@@ -77,6 +93,7 @@ namespace mouse_keyboard_bot.Recorder.View
         }
 
         private bool CanBeTopMost = true;
+        
         public void DisableTopmost()
         {
             CanBeTopMost = false;
@@ -99,6 +116,11 @@ namespace mouse_keyboard_bot.Recorder.View
             logArea.ScrollToEnd();
         }
 
+        public void SetRecording(Recording recording)
+        {
+            ActualRecordingName.Content = recording.Name;
+        }
+
         private void Save_Click(object sender, RoutedEventArgs e)
         {
         }
@@ -109,6 +131,7 @@ namespace mouse_keyboard_bot.Recorder.View
         public event EmptyEvent ReplyStart;
         public event EmptyEvent ReplyEnd;
         public event EmptyEvent Setialize;
+        public event StringEvent AddRecording;
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
@@ -133,6 +156,56 @@ namespace mouse_keyboard_bot.Recorder.View
         private void Serialize_Click(object sender, RoutedEventArgs e)
         {
             Setialize?.Invoke();
+        }
+
+        private void MenuOpen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuClose_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public class VVV
+        {
+            public string DisplayName { get; set; }
+
+            public VVV(string taskname)
+            {
+                this.DisplayName = taskname;
+            }
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as System.Windows.Controls.Button;
+            if (button != null)
+            {
+                var task = button.DataContext as VVV;
+
+                ((ObservableCollection<VVV>)listOfRecordings.ItemsSource).Remove(task);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveRecording_Click(object sender, RoutedEventArgs e)
+        {
+            AddRecording?.Invoke(recordingName.Text);
         }
     }
 }

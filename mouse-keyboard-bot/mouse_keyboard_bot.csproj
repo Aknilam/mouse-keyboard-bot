@@ -77,12 +77,18 @@
       <DependentUpon>ConfigForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="HostActions\ForegroundProcess.cs" />
+    <Compile Include="HostActions\Hotkeys.cs" />
     <Compile Include="HostActions\KeyPress.cs" />
     <Compile Include="App\BotAppContext.cs" />
     <Compile Include="HostActions\Maximize.cs" />
     <Compile Include="HostActions\MouseMove.cs" />
+    <Compile Include="Hotkeys\HotkeysManager.cs" />
+    <Compile Include="Model\AppStorage.cs" />
     <Compile Include="Model\Details.cs" />
     <Compile Include="Model\DetailsType.cs" />
+    <Compile Include="Model\Factories\ModelFactory.cs" />
+    <Compile Include="Model\Hotkey.cs" />
+    <Compile Include="Model\HotkeyRecordings.cs" />
     <Compile Include="Model\KeyboardDetails.cs" />
     <Compile Include="Model\MouseDetails.cs" />
     <Compile Include="Program.cs" />

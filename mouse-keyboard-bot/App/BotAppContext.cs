@@ -6,6 +6,8 @@ using System.Reflection;
 using mouse_keyboard_bot.Recorder;
 using mouse_keyboard_bot.Recorder.View;
 using mouse_keyboard_bot.Recorder.Presenter;
+using mouse_keyboard_bot.Model.Factories;
+using mouse_keyboard_bot.Model;
 
 namespace mouse_keyboard_bot.App
 {
@@ -16,6 +18,8 @@ namespace mouse_keyboard_bot.App
         private static readonly string DefaultTooltip = "Recorder";
 
         private Subscribe subscribe;
+        private AppStorage appStorage;
+        private ModelFactory modelFactory;
 
         /// <summary>
 		/// This class should be created and passed into Application.Run( ... )
@@ -25,6 +29,8 @@ namespace mouse_keyboard_bot.App
             InitializeContext();
 
             subscribe = new Subscribe();
+            appStorage = AppStorage.Deserialize();
+            modelFactory = new ModelFactory(appStorage);
 
             if (Config.OpenFormsAtInit.Value)
             {
@@ -62,7 +68,7 @@ namespace mouse_keyboard_bot.App
             {
                 var view = new Recordings();
                 botForm = view;
-                botPresenter = new RecordingsPresenter(view, subscribe);
+                botPresenter = new RecordingsPresenter(view, subscribe, modelFactory, appStorage);
 
                 botForm.Closed += botForm_Closed; // avoid reshowing a disposed form
                 ElementHost.EnableModelessKeyboardInterop(botForm);
@@ -166,6 +172,7 @@ namespace mouse_keyboard_bot.App
             string question = "Czy na pewno chcesz zamknąć program?";
             if (MessageBox.Show(question, "Zamykanie programu", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                appStorage.Serialize();
                 ExitThread();
             } else
             {

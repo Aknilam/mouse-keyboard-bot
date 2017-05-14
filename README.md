@@ -16,6 +16,7 @@ Actual state:
 
 - https://github.com/gmamaladze/globalmousekeyhook
 - https://github.com/smchristensen/HostSwitcher
+- http://stackoverflow.com/a/27309185/4112552
 
 
 # Must be
@@ -31,7 +32,7 @@ Actual state:
 # Should be
 
 + serialize track
-- saving multiple recordings to files
+- saving multiple recordings to files or serialize them
 - list of user-defined recordings 
 - assign hotkeys to repeat recordings
 - nice interface

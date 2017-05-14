@@ -1,4 +1,5 @@
 ﻿using mouse_keyboard_bot.Model;
+using mouse_keyboard_bot.Model.Factories;
 using mouse_keyboard_bot.Recorder.View;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,16 @@ namespace mouse_keyboard_bot.Recorder.Presenter
     {
         Recordings _view;
         Subscribe _subscribe;
+        AppStorage _appStorage;
         UserActionsRecorder recorder;
         Replier replier;
-        public RecordingsPresenter(Recordings view, Subscribe subscribe)
+        public RecordingsPresenter(Recordings view, Subscribe subscribe, ModelFactory modelFactory, AppStorage appStorage)
         {
             _view = view;
             _subscribe = subscribe;
+            _appStorage = appStorage;
 
-            recorder = new UserActionsRecorder(_subscribe);
+            recorder = new UserActionsRecorder(_subscribe, modelFactory);
             replier = new Replier();
 
             Init();
@@ -36,18 +39,34 @@ namespace mouse_keyboard_bot.Recorder.Presenter
 
             _view.Setialize += _view_Setialize;
 
-            recording = Recording.Deserialize();
+            _view.AddRecording += _view_AddRecording;
+
+            //recording = Recording.Deserialize();
+
+            recording = _appStorage.Recordings.FirstOrDefault();
+        }
+
+        private void _view_AddRecording(string name)
+        {
+            throw new NotImplementedException();
         }
 
         private void _view_Setialize()
         {
-            Recording.Serialize(recording);
+            //Recording.Serialize(recording);
         }
 
         Recording recording;
         private void view_End()
         {
+            _appStorage.Recordings = new List<Recording>();
+            _appStorage.Recordings.Add(recording);
             recording = recorder.FinishRecording();
+        }
+
+        private void AddHotkey()
+        {
+
         }
     }
 }
